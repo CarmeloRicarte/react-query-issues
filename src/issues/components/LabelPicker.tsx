@@ -14,19 +14,21 @@ export const LabelPicker = () => {
   }
 
   return labelsQuery.data ? (
-    labelsQuery.data.map((label: ILabel) => (
-      <div key={label.id}>
-        <span
-          className="badge rounded-pill m-1 label-picker"
-          style={{
-            border: `1px solid #${label.color}`,
-            color: `#${label.color}`,
-          }}
-        >
-          {label.name}
-        </span>
-      </div>
-    ))
+    <>
+      {labelsQuery.data.map((label: ILabel) => (
+        <div key={label.id}>
+          <span
+            className="badge rounded-pill m-1 label-picker"
+            style={{
+              border: `1px solid #${label.color}`,
+              color: `#${label.color}`,
+            }}
+          >
+            {label.name}
+          </span>
+        </div>
+      ))}
+    </>
   ) : (
     <>No data</>
   );
