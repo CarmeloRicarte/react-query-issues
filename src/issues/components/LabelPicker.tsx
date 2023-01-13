@@ -1,3 +1,4 @@
+import { LoadingIcon } from "../../shared/components/LoadingIcon";
 import { useLabels } from "../hooks/useLabels";
 import { ILabel } from "../interfaces/ILabel";
 
@@ -5,7 +6,7 @@ export const LabelPicker = () => {
   const labelsQuery = useLabels();
 
   if (labelsQuery.isLoading) {
-    return <h1>Loading...</h1>;
+    return <LoadingIcon />;
   }
 
   if (labelsQuery.isError) {
@@ -14,9 +15,8 @@ export const LabelPicker = () => {
 
   return labelsQuery.data ? (
     labelsQuery.data.map((label: ILabel) => (
-      <>
+      <div key={label.id}>
         <span
-          key={label.id}
           className="badge rounded-pill m-1 label-picker"
           style={{
             border: `1px solid #${label.color}`,
@@ -25,7 +25,7 @@ export const LabelPicker = () => {
         >
           {label.name}
         </span>
-      </>
+      </div>
     ))
   ) : (
     <>No data</>
