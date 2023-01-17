@@ -5,7 +5,11 @@ import { ILabel } from "../interfaces/ILabel";
 
 const getLabels = async (): Promise<ILabel[]> => {
   await sleep(2);
-  const { data } = await githubApi.get("/labels");
+  const { data } = await githubApi.get("/labels", {
+    headers: {
+      Authorization: null,
+    },
+  });
   return data;
 };
 
