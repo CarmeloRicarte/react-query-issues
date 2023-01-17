@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { LoadingIcon } from "../../shared/components/LoadingIcon";
-import { useLabels } from "../hooks/useLabels";
-import { ILabel } from "../interfaces/ILabel";
+import { useLabels } from "../hooks";
+import { ILabel } from "../interfaces";
 
 interface IProps {
   selectedLabels: string[];
