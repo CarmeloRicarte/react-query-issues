@@ -26,10 +26,13 @@ export const IssueItem: FC<IssueProps> = ({ issue }) => {
   };
 
   /**
-   * It sets the issue key and data in the React Query cache
+   * It sets the data for the query with the key ["issue", issue.number] to the issue object, and sets
+   * the updatedAt property to a time in the future
    */
   const preSetData = () => {
-    queryClient.setQueryData(["issue", issue.number], issue);
+    queryClient.setQueryData(["issue", issue.number], issue, {
+      updatedAt: new Date().getTime() + 100000,
+    });
   };
 
   return (
