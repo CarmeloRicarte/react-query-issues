@@ -11,7 +11,11 @@ interface IssueProps {
 export const IssueItem: FC<IssueProps> = ({ issue }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const onMouseEnter = () => {
+
+  /**
+   * It uses the queryClient to prefetch the data for the issue and its comments
+   */
+  const prefetchData = () => {
     queryClient.prefetchQuery(["issue", issue.number], () =>
       getIssueInfo(issue.number)
     );
@@ -20,11 +24,20 @@ export const IssueItem: FC<IssueProps> = ({ issue }) => {
       getIssueComments(issue.number)
     );
   };
+
+  /**
+   * It sets the issue key and data in the React Query cache
+   */
+  const preSetData = () => {
+    queryClient.setQueryData(["issue", issue.number], issue);
+  };
+
   return (
     <div
       className="card mb-2 issue"
       onClick={() => navigate(`/issues/issue/${issue.number}`)}
-      onMouseEnter={onMouseEnter}
+      //onMouseEnter={prefetchData}
+      onMouseEnter={preSetData}
     >
       <div className="card-body d-flex align-items-center">
         {issue.state === State.Open ? (
