@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { githubApi } from "../../api/githubApi";
 import { IIssue } from "../interfaces";
-import { sleep } from "../../helpers/sleep";
+import { sleep } from "../../helpers";
 
 export const getIssueInfo = async (issueNumber: number): Promise<IIssue> => {
   await sleep(2);
