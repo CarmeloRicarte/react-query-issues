@@ -5,7 +5,7 @@ import { ILabel } from "../interfaces/ILabel";
 
 const getLabels = async (): Promise<ILabel[]> => {
   await sleep(2);
-  const { data } = await githubApi.get("/labels", {
+  const { data } = await githubApi.get("/labels?per_page=100", {
     headers: {
       Authorization: null,
     },
