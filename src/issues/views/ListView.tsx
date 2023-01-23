@@ -8,7 +8,7 @@ import { State } from "../interfaces";
 export const ListView = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [state, setState] = useState<State>();
-  const { issuesQuery } = useIssues();
+  const { issuesQuery } = useIssues({ state, labels: selectedLabels });
   /**
    * If the labelName is already in the selectedLabels array, remove it. Otherwise, add it
    * @param {string} labelName - string - The name of the label that was clicked
