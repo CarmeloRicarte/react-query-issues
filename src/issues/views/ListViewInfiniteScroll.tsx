@@ -5,10 +5,10 @@ import { LabelPicker } from "../components/LabelPicker";
 import { useIssues } from "../hooks";
 import { State } from "../interfaces";
 
-export const ListView = () => {
+export const ListViewInfiniteScroll = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [state, setState] = useState<State>();
-  const { issuesQuery, page, nextPage, prevPage } = useIssues({
+  const { issuesQuery } = useIssues({
     state,
     labels: selectedLabels,
   });
@@ -35,23 +35,12 @@ export const ListView = () => {
           />
         )}
 
-        <div className="d-flex mt-2 justify-content-between align-items-center">
-          <button
-            onClick={prevPage}
-            disabled={issuesQuery.isFetching}
-            className="btn btn-outline-primary"
-          >
-            Prev
-          </button>
-          <span>{page}</span>
-          <button
-            onClick={nextPage}
-            disabled={issuesQuery.isFetching}
-            className="btn btn-outline-primary"
-          >
-            Next
-          </button>
-        </div>
+        <button
+          disabled={issuesQuery.isFetching}
+          className="btn btn-outline-primary"
+        >
+          Load more...
+        </button>
       </div>
 
       <div className="col-4">
