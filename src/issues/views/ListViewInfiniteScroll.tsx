@@ -2,13 +2,13 @@ import { useState } from "react";
 import { LoadingIcon } from "../../shared/components/LoadingIcon";
 import { IssueList } from "../components/IssueList";
 import { LabelPicker } from "../components/LabelPicker";
-import { useIssues } from "../hooks";
+import { useIssuesInfinite } from "../hooks";
 import { State } from "../interfaces";
 
 export const ListViewInfiniteScroll = () => {
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [state, setState] = useState<State>();
-  const { issuesQuery } = useIssues({
+  const { issuesQuery } = useIssuesInfinite({
     state,
     labels: selectedLabels,
   });
@@ -29,15 +29,16 @@ export const ListViewInfiniteScroll = () => {
           <LoadingIcon />
         ) : (
           <IssueList
-            issues={issuesQuery.data || []}
+            issues={issuesQuery.data?.pages.flat() || []}
             state={state}
             onStateChanged={(newState: State | undefined) => setState(newState)}
           />
         )}
 
         <button
-          disabled={issuesQuery.isFetching}
-          className="btn btn-outline-primary"
+          onClick={() => issuesQuery.fetchNextPage()}
+          disabled={!issuesQuery.hasNextPage || issuesQuery.isFetching}
+          className="btn btn-outline-primary mt-3"
         >
           Load more...
         </button>
